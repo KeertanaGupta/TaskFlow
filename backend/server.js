@@ -31,9 +31,10 @@ app.use((err, req, res, next) => {
 });
 
 // MongoDB Connection and Server Start
+const MONGO_URI = process.env.MONGO_URI || process.env.MONGODB_URI;
+
 if (!MONGO_URI) {
-  console.error('CRITICAL ERROR: MONGO_URI env variable is missing!');
-  process.exit(1);
+  throw new Error('CRITICAL ERROR: MONGO_URI or MONGODB_URI environment variable is missing!');
 }
 
 mongoose.connect(MONGO_URI)
